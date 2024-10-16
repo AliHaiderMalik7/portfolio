@@ -1,5 +1,5 @@
 {
-  "homepage": "https://AliHaiderMalik7.github.io",
+  "homepage": "https://alihaidermalik7.github.io/portfolio",
   "name": "aliportfolio",
   "version": "0.1.0",
   "private": true,
@@ -24,7 +24,7 @@
     "predeploy": "npm run build",
     "start": "node fetch.js && react-scripts start",
     "build": "node fetch.js && react-scripts build",
-    "deploy": "gh-pages master -d build",
+    "deploy": "gh-pages -b port -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"./**/*.{js,css,json,scss}\"",
