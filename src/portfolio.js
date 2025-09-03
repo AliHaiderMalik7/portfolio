@@ -249,7 +249,7 @@ const bigProjects = {
       footerLink: [
         {
           name: "Visit Website",
-          url: "http://stage.agriplot.earth/"
+          url: "https://beta.agriplot.earth/"
         }
       ]
     },
@@ -278,7 +278,7 @@ const bigProjects = {
       ]
     }
   ],
-  display: true // Set false to hide this section, defaults to true
+  display: true 
 };
 
 // Achievement Section
@@ -411,7 +411,7 @@ const contactInfo = {
   title: emoji("Contact Me ☎️"),
   subtitle:
     "Discuss a project or just want to say hi? My Inbox is open for all.",
-  number: "+92-3054042027",
+  number: "+923201484476 / +923054042027",
   email_address: "alihaidermalik08@gmail.com"
 };
 
