@@ -242,7 +242,7 @@ const bigProjects = {
       ]
     },
     {
-      image: "http://stage.agriplot.earth/inovasilogo.svg",
+      image: require("./assets/images/agriplot.png"),
       projectName: "Agriplot",
       projectDesc:
         "Inovasi Agriplot is a tech-driven dataset that developed by Mosaix and Inovasi Digital to provide companies with the deforestation-free supply chain information that is aligned with EU Deforestation Regulation. The data set contains in Inovasi Agriplot is measurable and verifiable to comply with EUDR requirements.",
