@@ -2,16 +2,15 @@
   font-family: "Agustina";
   font-style: normal;
   font-weight: normal;
-  src: url("%PUBLIC_URL%/fonts/Agustina.woff") format("woff");
+  src: url("../public/fonts/Agustina.woff") format("woff");
   font-display: swap;
 }
-
 
 @font-face {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: normal;
-  src: url("%PUBLIC_URL%/fonts/Montserrat-Regular.ttf") format("truetype");
+  src: url("../public/fonts/Montserrat-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
