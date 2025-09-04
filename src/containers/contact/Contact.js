@@ -53,8 +53,6 @@ export default function Contact() {
           </div>
           <div className="contact-image-div">
             <img src={manWorking} alt="man working" />
-
-          
           </div>
         </div>
       </div>
