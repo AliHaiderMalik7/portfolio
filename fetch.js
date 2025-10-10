@@ -18,13 +18,12 @@ const ERR = {
 };
 if (USE_GITHUB_DATA === "true") {
   if (GITHUB_USERNAME === undefined) {
-    throw new Error(ERR.noUserName);
-  }
-
-  var data = JSON.stringify({
-    query: `
+    console.log("GitHub username not set, skipping GitHub data fetch.");
+  } else {
+    var data = JSON.stringify({
+      query: `
 {
-  user(login:"${GITHUB_USERNAME}") { 
+  user(login:"${GITHUB_USERNAME}") {
     name
     bio
     avatarUrl
@@ -54,41 +53,43 @@ if (USE_GITHUB_DATA === "true") {
     }
 }
 `
-  });
-  const default_options = {
-    hostname: "api.github.com",
-    path: "/graphql",
-    port: 443,
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-      "User-Agent": "Node"
-    }
-  };
-
-  const req = https.request(default_options, res => {
-    let data = "";
-
-    if (res.statusCode !== 200) {
-      throw new Error(ERR.requestFailed);
-    }
-
-    res.on("data", d => {
-      data += d;
     });
-    res.on("end", () => {
-      fs.writeFile("./public/profile.json", data, function (err) {
-        if (err) return console.log(err);
+    const default_options = {
+      hostname: "api.github.com",
+      path: "/graphql",
+      port: 443,
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        "User-Agent": "Node"
+      }
+    };
+
+    const req = https.request(default_options, res => {
+      let data = "";
+
+      if (res.statusCode !== 200) {
+        console.log("GitHub request failed, skipping.");
+        return;
+      }
+
+      res.on("data", d => {
+        data += d;
+      });
+      res.on("end", () => {
+        fs.writeFile("./public/profile.json", data, function (err) {
+          if (err) return console.log(err);
+        });
       });
     });
-  });
 
-  req.on("error", error => {
-    throw error;
-  });
+    req.on("error", error => {
+      console.log("GitHub request error, skipping.");
+    });
 
-  req.write(data);
-  req.end();
+    req.write(data);
+    req.end();
+  }
 }
 
 if (MEDIUM_USERNAME !== undefined) {
@@ -104,7 +105,8 @@ if (MEDIUM_USERNAME !== undefined) {
     let mediumData = "";
 
     if (res.statusCode !== 200) {
-      throw new Error(ERR.requestMediumFailed);
+      console.log("Medium request failed, skipping.");
+      return;
     }
 
     res.on("data", d => {
@@ -119,7 +121,7 @@ if (MEDIUM_USERNAME !== undefined) {
   });
 
   req.on("error", error => {
-    throw error;
+    console.log("Medium request error, skipping.");
   });
 
   req.end();
