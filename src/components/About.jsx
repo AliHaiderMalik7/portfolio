@@ -1,5 +1,6 @@
 import React from "react";
 import SectionHead from "./SectionHead.jsx";
+import Icon from "./Icon.jsx";
 import {about, profile} from "../data.js";
 
 export default function About() {
@@ -7,30 +8,43 @@ export default function About() {
   return (
     <section className="section" id="about">
       <div className="wrap">
-        <SectionHead index="01" title="About" kicker="Who I am" />
+        <SectionHead icon="sparkles" eyebrow="About me" title="Who I am" />
         <div className="about-grid">
-          <p className="about-lead" data-reveal>
-            {lead}
-          </p>
-          <div className="about-side" data-reveal>
+          <div className="about-text" data-reveal>
+            <p className="about-lead">{lead}</p>
             {rest.map(p => (
               <p key={p}>{p}</p>
             ))}
-            <dl className="facts">
-              <div>
-                <dt className="mono">Experience</dt>
-                <dd>{profile.experience}</dd>
-              </div>
-              <div>
-                <dt className="mono">Based in</dt>
-                <dd>{profile.location}</dd>
-              </div>
-              <div>
-                <dt className="mono">Availability</dt>
-                <dd>{profile.availability}</dd>
-              </div>
-            </dl>
           </div>
+          <ul className="about-facts" data-reveal style={{"--d": "100ms"}}>
+            <li className="glass">
+              <span className="fact-icon">
+                <Icon name="clock" />
+              </span>
+              <div>
+                <span className="fact-label">Experience</span>
+                <span className="fact-value">{profile.experience}</span>
+              </div>
+            </li>
+            <li className="glass">
+              <span className="fact-icon">
+                <Icon name="pin" />
+              </span>
+              <div>
+                <span className="fact-label">Based in</span>
+                <span className="fact-value">{profile.location}</span>
+              </div>
+            </li>
+            <li className="glass">
+              <span className="fact-icon">
+                <Icon name="briefcase" />
+              </span>
+              <div>
+                <span className="fact-label">Availability</span>
+                <span className="fact-value">{profile.availability}</span>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

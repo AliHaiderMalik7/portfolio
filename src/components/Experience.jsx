@@ -6,27 +6,37 @@ export default function Experience() {
   return (
     <section className="section" id="experience">
       <div className="wrap">
-        <SectionHead index="03" title="Experience" kicker="Where I've worked" />
-        <ol className="xp-list">
-          {experience.map(job => (
-            <li className="xp-row" key={job.company} data-reveal>
-              <div className="xp-period mono">
-                {job.period}
-                {job.current && (
-                  <span className="now">
-                    <i className="dot" aria-hidden="true" /> Now
+        <SectionHead
+          icon="briefcase"
+          eyebrow="Experience"
+          title="Where I've worked"
+        />
+        <ol className="timeline">
+          {experience.map((job, i) => (
+            <li
+              className={`tl-item ${job.current ? "is-current" : ""}`}
+              key={job.company}
+              data-reveal
+              style={{"--d": `${i * 80}ms`}}
+            >
+              <span className="tl-dot" aria-hidden="true" />
+              <article className="tl-card glass">
+                <div className="tl-head">
+                  <div>
+                    <h3>{job.role}</h3>
+                    <p className="tl-company gradient-text">{job.company}</p>
+                  </div>
+                  <span className={`badge ${job.current ? "badge-live" : ""}`}>
+                    {job.current && <span className="live-dot" aria-hidden="true" />}
+                    {job.period}
                   </span>
-                )}
-              </div>
-              <div className="xp-head">
-                <h3>{job.company}</h3>
-                <p>{job.role}</p>
-              </div>
-              <ul className="xp-points">
-                {job.points.map(p => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
+                </div>
+                <ul className="bullets">
+                  {job.points.map(p => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              </article>
             </li>
           ))}
         </ol>
