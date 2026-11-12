@@ -1,129 +1,123 @@
-import React, {useEffect, useState} from "react";
-import {profile, skills, experience, featuredProject} from "../data.js";
-
-function useLahoreTime() {
-  const fmt = () =>
-    new Intl.DateTimeFormat("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Asia/Karachi"
-    }).format(new Date());
-  const [time, setTime] = useState(fmt);
-  useEffect(() => {
-    const id = setInterval(() => setTime(fmt()), 30000);
-    return () => clearInterval(id);
-  }, []);
-  return time;
-}
+import React from "react";
+import Icon from "./Icon.jsx";
+import {profile, experience, featuredProject} from "../data.js";
 
 const coreStack = ["Next.js", "React", "Node.js", "OpenAI", "PostgreSQL"];
 
 export default function Hero() {
-  const time = useLahoreTime();
   const current = experience.find(e => e.current) || experience[0];
-  const marquee = skills.flatMap(s => s.items).slice(0, 18);
 
   return (
     <section className="hero" id="top">
-      <div className="wrap hero-grid">
-        <div className="hero-copy">
-          <p className="hero-hello mono">
-            <i className="dot" aria-hidden="true" />
-            Available for work
-            <span className="sep">/</span>
-            {profile.location}
-          </p>
+      <div className="hero-bg" aria-hidden="true">
+        <div className="grid-lines" />
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+      </div>
 
-          <h1 className="hero-title">
-            <span className="hero-name">Hi, I&rsquo;m {profile.name} —</span>
-            AI Engineer &amp; <em>Full-Stack</em> Developer
-            <span className="accent">.</span>
-          </h1>
+      <div className="wrap hero-inner">
+        <p className="pill hero-pill">
+          <span className="live-dot" aria-hidden="true" />
+          Available for work
+          <span className="pill-sep" aria-hidden="true" />
+          <Icon name="pin" size={14} /> {profile.location}
+        </p>
 
-          <p className="hero-tagline">{profile.tagline}</p>
+        <h1 className="hero-title">
+          <span className="gradient-text">AI Engineer</span> &amp;{" "}
+          <br />
+          {/* non-breaking hyphen keeps "Full‑Stack" on one line */}
+          Full&#8209;Stack Developer
+        </h1>
 
-          <div className="hero-cta">
-            <a className="btn btn-solid" href={`mailto:${profile.email}`}>
-              Get in touch
-            </a>
-            <a className="btn btn-ghost" href="#work">
-              See my work
-            </a>
+        <p className="hero-sub">{profile.tagline}</p>
+
+        <div className="hero-cta">
+          <a className="btn btn-primary btn-lg" href={`mailto:${profile.email}`}>
+            <Icon name="mail" /> Get in touch
+          </a>
+          <a className="btn btn-glass btn-lg" href="#work">
+            View projects <Icon name="arrowRight" />
+          </a>
+          <div className="hero-socials">
             <a
-              className="btn btn-ghost btn-icon"
+              className="icon-btn"
               href={profile.github}
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub"
             >
-              GitHub ↗
+              <Icon name="github" size={20} />
             </a>
             <a
-              className="btn btn-ghost btn-icon"
+              className="icon-btn"
               href={profile.linkedin}
               target="_blank"
               rel="noreferrer"
+              aria-label="LinkedIn"
             >
-              LinkedIn ↗
+              <Icon name="linkedin" size={20} />
             </a>
           </div>
-
-          <dl className="hero-stats">
-            <div>
-              <dt className="mono">Experience</dt>
-              <dd>{profile.experience}</dd>
-            </div>
-            <div>
-              <dt className="mono">Focus</dt>
-              <dd>{profile.titleDetail}</dd>
-            </div>
-            <div>
-              <dt className="mono">Local time</dt>
-              <dd>{time} PKT</dd>
-            </div>
-          </dl>
         </div>
 
-        <aside className="now-card" aria-label="Currently">
-          <div className="now-head mono">
-            <span>
-              <i className="dot" aria-hidden="true" /> Currently
+        <div className="bento hero-bento">
+          <article className="tile tile-current" data-reveal>
+            <span className="tile-label">
+              <Icon name="briefcase" size={15} /> Currently
             </span>
-            <span className="muted">{current.period}</span>
-          </div>
-          <div className="now-block">
-            <p className="now-role">{current.role}</p>
-            <p className="now-company">@ {current.company}</p>
-          </div>
-          <a className="now-block now-feature" href="#work">
-            <span className="mono muted">Featured project</span>
-            <span className="now-feature-name">
-              {featuredProject.name} <span aria-hidden="true">→</span>
+            <p className="tile-big">{current.role}</p>
+            <p className="tile-meta">
+              <span className="gradient-text">@ {current.company}</span> ·{" "}
+              {current.period}
+            </p>
+          </article>
+
+          <article className="tile tile-stat" data-reveal style={{"--d": "80ms"}}>
+            <span className="tile-label">
+              <Icon name="clock" size={15} /> Experience
             </span>
-            <span className="muted">{featuredProject.description}</span>
+            <p className="tile-number">5+</p>
+            <p className="tile-meta">years shipping production apps</p>
+          </article>
+
+          <article className="tile tile-focus" data-reveal style={{"--d": "160ms"}}>
+            <span className="tile-label">
+              <Icon name="sparkles" size={15} /> Focus
+            </span>
+            <ul className="focus-list">
+              <li>LLMs</li>
+              <li>RAG</li>
+              <li>AI Agents</li>
+            </ul>
+          </article>
+
+          <a
+            className="tile tile-feature"
+            href="#work"
+            data-reveal
+            style={{"--d": "240ms"}}
+          >
+            <span className="tile-label">
+              <Icon name="layers" size={15} /> Featured project
+            </span>
+            <p className="tile-big">
+              {featuredProject.name}
+              <Icon name="arrowUpRight" size={20} className="tile-arrow" />
+            </p>
+            <p className="tile-meta">{featuredProject.description}</p>
           </a>
-          <div className="now-block">
-            <span className="mono muted">Core stack</span>
+
+          <article className="tile tile-stack" data-reveal style={{"--d": "320ms"}}>
+            <span className="tile-label">
+              <Icon name="monitor" size={15} /> Core stack
+            </span>
             <ul className="chips">
               {coreStack.map(s => (
                 <li key={s}>{s}</li>
               ))}
             </ul>
-          </div>
-        </aside>
-      </div>
-
-      <div className="marquee" aria-hidden="true">
-        <div className="marquee-track">
-          {[0, 1].map(k => (
-            <div className="marquee-group" key={k}>
-              {marquee.map(item => (
-                <span key={item}>
-                  {item}
-                  <i>✦</i>
-                </span>
-              ))}
-            </div>
-          ))}
+          </article>
         </div>
       </div>
     </section>

@@ -1,11 +1,15 @@
 import React from "react";
+import Icon from "./Icon.jsx";
 
-export default function SectionHead({index, title, kicker}) {
+export default function SectionHead({icon, eyebrow, title, sub}) {
   return (
     <header className="section-head" data-reveal>
-      <span className="mono section-index">({index})</span>
+      <span className="eyebrow">
+        {icon && <Icon name={icon} size={14} />}
+        {eyebrow}
+      </span>
       <h2 className="section-title">{title}</h2>
-      {kicker && <p className="mono section-kicker">{kicker}</p>}
+      {sub && <p className="section-sub">{sub}</p>}
     </header>
   );
 }
